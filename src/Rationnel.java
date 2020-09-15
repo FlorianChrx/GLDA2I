@@ -53,10 +53,18 @@ public class Rationnel {
         denominateur = 1;
     }
 
+    /**
+     * Permet de tester si le rationnel est nul (=0)
+     * @return un booleen représentant si le rationnel est nul
+     */
     public boolean estNul() {
         return entier + denominateur == 0;
     }
 
+    /**
+     * Permet de construire un Raationnel qui est l'inverse de l'instance courante
+     * @return Le rationnel inverse créé
+     */
     public Rationnel inverse() {
         Rationnel result = new Rationnel(entier, numerateur, denominateur);
         result.setNumerateur(result.getEntier() * result.getDenominateur() + result.getNumerateur());
@@ -67,6 +75,9 @@ public class Rationnel {
         return result;
     }
 
+    /**
+     * Permet de simplifier le rationner en mettant la partie décimale en une fraction irréductible positive
+     */
     private void simplification() {
         entier += numerateur / denominateur;
         numerateur = numerateur % denominateur;
@@ -82,6 +93,12 @@ public class Rationnel {
         }
     }
 
+    /**
+     * Permet de calculer le pgcd de deux nombres
+     * @param a un entier quelconque
+     * @param b un entier quelconque
+     * @return le pgcd de a et de b
+     */
     public int pgcd(int a, int b) {
         int r = 0;
         while (b != 0) {
@@ -92,6 +109,11 @@ public class Rationnel {
         return a;
     }
 
+    /**
+     * Permet d'ajouter deux rationnels
+     * @param r l'autre rationnel à ajouter
+     * @return Le rationnel obtenu
+     */
     public Rationnel ajouter(Rationnel r) {
         Rationnel result = new Rationnel(entier, numerateur, denominateur);
         result.setEntier(entier + r.getEntier());
@@ -100,6 +122,11 @@ public class Rationnel {
         return result;
     }
 
+    /**
+     * Permet de multiplier deux rationnels
+     * @param r l'autre rationnel par lequel on multiplie
+     * @return Le rationnel obtenu
+     */
     public Rationnel multiplier(Rationnel r) {
         Rationnel result = new Rationnel(0);
         result.setNumerateur(((entier * denominateur) + numerateur) * ((r.getEntier() * r.getDenominateur()) + r.getNumerateur()));
@@ -107,10 +134,15 @@ public class Rationnel {
         return result;
     }
 
+    /**
+     * Permet de comparer 2 rationnels
+     * @param other la rationnel avec lequel on compare
+     * @return un nb positif si instance courante supérieure, négatif si inférieure et 0 si égale
+     */
     public int comparer(Rationnel other){
-        if(entier == other.getEntier()) return entier - other.getEntier();
-        int numerateur = numerateur * r.getDenominateur() - r.getNumerateur() * denominateur;
-        return 0;
+        if(entier != other.getEntier()) return entier - other.getEntier();
+        int a = numerateur * other.getDenominateur() - other.getNumerateur() * denominateur;
+        return a;
     }
 
     @Override

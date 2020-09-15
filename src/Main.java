@@ -12,5 +12,6 @@ public class Main {
         System.out.println(inverse.toString());
         System.out.println(r.multiplier(inverse).toString());
         System.out.println(r.multiplier(inverse).ajouter(new Rationnel(2,1,7)).ajouter(new Rationnel(2,1,7)));
+        System.out.println(r.comparer(inverse));
     }
 }
