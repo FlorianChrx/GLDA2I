@@ -1,20 +1,44 @@
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class NoeudArbre {
-    private static Scanner keyboard = new Scanner(System.in);
+    /**
+     * Attribut servant à la saisie clavier
+     */
+    private static final Scanner keyboard = new Scanner(System.in);
+    /**
+     * Chaine de caractère représentant le contenu du noeud
+     */
     private String chaine;
+    /**
+     * Noeuds fils de l'arbre binaire (ici non / oui)
+     */
     private NoeudArbre gauche, droite;
 
+    /**
+     * Constructeur permettant de construire un noeud simple sans fils
+     * @param chaine le contenu du noeud
+     */
     public NoeudArbre(String chaine) {
-        this (chaine , (NoeudArbre) null, (NoeudArbre) null);
+        this (chaine , null, (NoeudArbre) null);
     }
 
+    /**
+     * Constructeur permettant de fabriquer un noeud avec les contenu du noeud père et de ses fils
+     * @param chaine le contenu du père
+     * @param gauche le contenu du fils de gauche (non)
+     * @param droite le contenu du file de droite (oui)
+     */
     public NoeudArbre (String chaine, String gauche, String droite) {
         this(chaine, new NoeudArbre(gauche), new NoeudArbre(droite));
     }
 
+    /**
+     * Constructeur permettant de construire un noeud en lui donnant ses fils construits
+     * @param chaine le contenu du noeud
+     * @param droite le fils droit du noeud
+     * @param gauche le fils gauche du noeud
+     */
     public NoeudArbre (String chaine, NoeudArbre droite, NoeudArbre gauche) {
         this.chaine = chaine;
         this.gauche = gauche;
@@ -27,6 +51,9 @@ public class NoeudArbre {
         return chaine + " " + (gauche != null ? gauche.toString() : "") +  " " + (droite != null ? droite.toString() : "");
     }
 
+    /**
+     * Pose une serie de questions jusqu'à trouver l'animal ou si echec de recherche (non existant)
+     */
     public void rechercherAnimal() {
         System.out.println(chaine);
         String response = keyboard.nextLine();
@@ -48,6 +75,9 @@ public class NoeudArbre {
         }
     }
 
+    /**
+     * Transforme une feuille en noeud contenant 2 noouvelles feuilles pour ajouter une question et ses 2 possibilités d'animaux
+     */
     private void apprendre() {
         System.out.println("Qu’est-ce que c’est ?");
         String chaine = keyboard.nextLine();
@@ -69,6 +99,11 @@ public class NoeudArbre {
         this.chaine = question;
     }
 
+    /**
+     * Permet de tracer le cheminement permettant de caractériser un animal
+     * @param animal le nom de l'animal à caractériser
+     * @return les réponses à donner pour faire deviner cet animal
+     */
     String definir(String animal) {
         if(droite == null && gauche == null) return chaine;
         String resG = "";
@@ -80,6 +115,10 @@ public class NoeudArbre {
         return chaine + " => " + resG + resD;
     }
 
+    /**
+     * Fonction principale permettant soit de lancer le mode de recherche soit de caractériser un animal donné en paramètre
+     * @param args Voir sujet pour utilisation des paramètres
+     */
     public static void main(String[] args) {
         NoeudArbre n = null;
         switch (args.length){
