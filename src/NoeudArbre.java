@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class NoeudArbre {
@@ -7,13 +8,17 @@ public class NoeudArbre {
     private NoeudArbre gauche, droite;
 
     public NoeudArbre(String chaine) {
-        this.chaine = chaine;
+        this (chaine , (NoeudArbre) null, (NoeudArbre) null);
     }
 
     public NoeudArbre (String chaine, String gauche, String droite) {
+        this(chaine, new NoeudArbre(gauche), new NoeudArbre(droite));
+    }
+
+    public NoeudArbre (String chaine, NoeudArbre droite, NoeudArbre gauche) {
         this.chaine = chaine;
-        this.gauche = new NoeudArbre(gauche);
-        this.droite = new NoeudArbre(droite);
+        this.gauche = gauche;
+        this.droite = droite;
     }
 
     @Override
@@ -69,35 +74,33 @@ public class NoeudArbre {
         String resG = "";
         String resD = "";
         if(gauche != null) resG = gauche.definir(animal);
-        if(droite != null) resG = gauche.definir(animal);
+        if(droite != null) resD = droite.definir(animal);
         if(!resG.contains(animal)) resG = "";
-        if(!resG.contains(animal)) resG = "";
-        return chaine + "=>" + resG + resD;
+        if(!resD.contains(animal)) resD = "";
+        return chaine + " => " + resG + resD;
     }
 
     public static void main(String[] args) {
-        NoeudArbre n;
+        NoeudArbre n = null;
         switch (args.length){
-            case 3:
-                System.out.println(Arrays.toString(args));
-                n = new NoeudArbre(args[0], args[1], args[2]);
-                break;
             case 2:
                 if(args[0].equals("--definir")) {
                     n = new NoeudArbre("Est-ce un mammifère ?");
                     n.droite = new NoeudArbre("Est-ce un canidé ?", "chat", "chien");
                     n.gauche = new NoeudArbre("Est-ce dangereux ?", "poisson", "requin");
                     System.out.println(n.definir(args[1]));
-                    break;
                 }
+                break;
+            case 3:
+                System.out.println(Arrays.toString(args));
+                n = new NoeudArbre(args[0], args[1], args[2]);
             default:
-                n = new NoeudArbre("Est-ce un mammifère ?", "chien", "poisson");
+                if(n == null) n = new NoeudArbre("Est-ce un mammifère ?", "chien", "poisson");
+                do {
+                    n.rechercherAnimal();
+                    System.out.println("Voulez vous continuer ?");
+                } while (!keyboard.nextLine().equals("non"));
+                System.out.println(n.toString());
         }
-        do {
-            n.rechercherAnimal();
-            System.out.println("Voulez vous continuer ?");
-        } while (!keyboard.nextLine().equals("non"));
-        System.out.println(n.toString());
     }
-
 }
