@@ -1,12 +1,24 @@
+import java.util.Scanner;
+
 /**
  * Programme permettant de manipuler et d'expérimenter le problème
  * des tours de Hanoï
  */
 public class Hanoi {
-    // Les trois piles représentant les tours de Hanoï
+    /**
+     * Les trois piles représentant les tours de Hanoi
+     */
     private static PileHanoi a, b, c;
+    /**
+     * Attribut permettant les saisies clavier
+     */
+    private static final Scanner clavier = new Scanner(System.in);
 
-    // Initialisation des tours pour n disques, placés au début en A
+    /**
+     * Initialisation des tours pour n disques
+     *
+     * @param n
+     */
     private static void init(int n) {
         a = new PileHanoi("A");
         b = new PileHanoi("B");
@@ -15,69 +27,71 @@ public class Hanoi {
             a.empile(new DisqueHanoi(i));
     }
 
-    // Affichage des trois tours
+    /**
+     * Affichage des trois tours
+     */
     private static void affiche() {
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
+        System.out.println(a + "\n" + b + "\n" + c);
     }
 
-    // Pour le mode interactif, le choix de la pile est donné par le joueur
-    // en toutes lettres ("A", "B", "C"). -> retourne la pile correspondante
+    /**
+     * Pour le mode interactif, le choix de la pile est donné par le joueur
+     * en toutes lettres ("A", "B", "C"). -> retourne la pile correspondante
+     *
+     * @param r
+     * @return
+     */
     private static PileHanoi analyse(String r) {
-        if (r.equalsIgnoreCase("A"))
-            return a;
-        if (r.equalsIgnoreCase("B"))
-            return b;
-        return c;
+        switch (r.toLowerCase()) {
+            case "a":
+                return a;
+            case "b":
+                return b;
+            case "c":
+                return c;
+            default:
+                return null;
+        }
     }
 
-    // Méthode principale du programme.
+    /**
+     * Méthode principale du programme.
+     *
+     * @param arg
+     */
     public static void main(String[] arg) {
-        // le nombre de disques (on peut aussi le demander au joueur)
         int nbDisques = 3;
-
-        // initialisation des piles
         init(nbDisques);
-
-        boolean fini = false;
+        boolean fini;
         String rep;
-        PileHanoi depart, arrivee;
-
-        System.out.println(arg[0].getClass());
+        PileHanoi start, end;
 
         if (arg[0].equals("--auto")) {
             resoudreAuto(a, b, c);
         } else {
             do {
                 affiche();
-                System.out.print("Déplacer de : ");
-                rep = Clavier.readString();
-                if (rep.equalsIgnoreCase("stop"))
-                    fini = true;
-                depart = analyse(rep);
+                System.out.print("Déplacer de: ");
+                rep = clavier.nextLine();
+                fini = rep.equalsIgnoreCase("stop");
+                start = analyse(rep);
                 if (!fini) {
                     System.out.print("Vers : ");
-                    rep = Clavier.readString();
-                    if (rep.equalsIgnoreCase("STOP"))
-                        fini = true;
-                    arrivee = analyse(rep);
-                    if (arrivee.peutEmpiler(depart.sommet()))
-                        depart.deplacerUnElementVers(arrivee);
+                    rep = clavier.nextLine();
+                    fini = rep.equalsIgnoreCase("stop");
+                    end = analyse(rep);
+                    if (end.peutEmpiler(start.sommet()))
+                        start.deplacerUnElementVers(end);
                     else
                         System.out.println("Impossible !");
                 }
             } while (!fini);
         }
-
-
-        System.out.println("OK, c'est fini !");
+        System.out.println("Ok, c'est fini !");
     }
 
     public static void resoudreAuto(PileHanoi a, PileHanoi b, PileHanoi c) {
         a.deplacerDesDisques(a.nbElements(), b, c);
-        System.out.println(a.toString());
-        System.out.println(b.toString());
-        System.out.println(c.toString());
+        System.out.println(a + "\n" + b + "\n" + c);
     }
 }

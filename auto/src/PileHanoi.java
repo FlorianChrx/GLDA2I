@@ -1,8 +1,17 @@
 public class PileHanoi implements Pile<Disque> {
 
-    private Disque[] elements;  // les éléments contenus dans la pile
-    private int nbElem = 0; // le nombre d’éléments dans la pile
-    private String nom;     // nom de la pile : information supplémentaire propre à PileTableau
+    /**
+     * les éléments contenus dans la pile
+     */
+    private Disque[] elements;
+    /**
+     * le nombre d’éléments dans la pile
+     */
+    private int nbElem = 0;
+    /**
+     * identifiant de la pile
+     */
+    private String nom;
 
 
     public PileHanoi(String nom) {
@@ -82,17 +91,6 @@ public class PileHanoi implements Pile<Disque> {
         p.empile(this.depile());
     }
 
-    @Override
-    public String toString() {
-        String phrase = "Nom de la pile :" + this.nom + "\n";
-
-        for (int i = 0; i < this.nbElements(); i++) {
-
-            phrase = phrase + " " + elements[i].toString();
-        }
-        return phrase;
-    }
-
     public void deplacerDesDisques(int n, Pile dest, Pile interm) {
         if (n == 0)
             return;
@@ -108,4 +106,14 @@ public class PileHanoi implements Pile<Disque> {
         interm2.deplacerDesDisques(n - 1, dest, this);
     }
 
+    @Override
+    public String toString() {
+        String phrase = "Nom de la pile :" + this.nom + "\n";
+
+        for (int i = 0; i < this.nbElements(); i++) {
+
+            phrase = phrase + " " + elements[i].toString();
+        }
+        return phrase;
+    }
 }
