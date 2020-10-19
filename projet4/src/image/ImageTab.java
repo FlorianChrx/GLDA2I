@@ -6,6 +6,20 @@ public class ImageTab implements ImageGrise {
 
     public ImageTab(int largeur, int hauteur) {
         image = new NiveauGris[hauteur][largeur];
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; j < largeur(); j++) {
+                definirPoint(i, j, NiveauGris.BLANC);
+            }
+        }
+    }
+
+    public ImageTab(ImageGrise image) {
+        this(image.largeur(), image.hauteur());
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; j < largeur(); j++) {
+                definirPoint(i, j, pointEn(i,j));
+            }
+        }
     }
 
     @Override
@@ -41,7 +55,7 @@ public class ImageTab implements ImageGrise {
     @Override
     public void randomize() {
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
+            for (int j = 0; j < largeur(); j++) {
                 definirPoint(i, j, NiveauGris.values()[(int) (Math.random() * NiveauGris.values().length)]);
             }
         }
@@ -51,8 +65,8 @@ public class ImageTab implements ImageGrise {
     public int compterPoints(NiveauGris gris) {
         int cpt = 0;
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                if (gris.equals(pointEn(i,j))) cpt++;
+            for (int j = 0; j < largeur(); j++) {
+                if (gris.equals(pointEn(i, j))) cpt++;
             }
         }
         return cpt;
@@ -62,8 +76,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise inverser() {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).inverser());
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).inverser());
             }
         }
         return res;
@@ -73,8 +87,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise eclaircir() {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).eclaircir());
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).eclaircir());
             }
         }
         return res;
@@ -84,8 +98,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise assombrir() {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).assombrir());
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).assombrir());
             }
         }
         return res;
@@ -95,8 +109,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise dupliquer() {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j));
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j));
             }
         }
         return res;
@@ -106,8 +120,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise ajouter(ImageGrise img) {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).ajouter(img.pointEn(i, j)));
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).ajouter(img.pointEn(i, j)));
             }
         }
         return res;
@@ -117,8 +131,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise soustraire(ImageGrise img) {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).soustraire(img.pointEn(i, j)));
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).soustraire(img.pointEn(i, j)));
             }
         }
         return res;
@@ -128,8 +142,8 @@ public class ImageTab implements ImageGrise {
     public ImageGrise XOR(ImageGrise img) {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                res.definirPoint(i, j, pointEn(i,j).XOR(img.pointEn(i, j)));
+            for (int j = 0; j < largeur(); j++) {
+                res.definirPoint(i, j, pointEn(i, j).XOR(img.pointEn(i, j)));
             }
         }
         return res;
@@ -139,9 +153,9 @@ public class ImageTab implements ImageGrise {
     public ImageGrise intersection(ImageGrise img) {
         ImageGrise res = new ImageTab(largeur(), hauteur());
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                if (pointEn(i,j).compareTo(img.pointEn(i, j)) == 0) {
-                    res.definirPoint(i, j, pointEn(i,j));
+            for (int j = 0; j < largeur(); j++) {
+                if (pointEn(i, j).compareTo(img.pointEn(i, j)) == 0) {
+                    res.definirPoint(i, j, pointEn(i, j));
                 } else {
                     res.definirPoint(i, j, NiveauGris.BLANC);
                 }
@@ -155,8 +169,8 @@ public class ImageTab implements ImageGrise {
         int total = 0;
         int nbPixels = 0;
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
-                total += pointEn(i,j).ordinal();
+            for (int j = 0; j < largeur(); j++) {
+                total += pointEn(i, j).ordinal();
                 total++;
             }
         }
@@ -168,7 +182,7 @@ public class ImageTab implements ImageGrise {
         ImageGrise res = dupliquer();
         NiveauGris niv = niveauMoyen();
         for (int i = 0; i < hauteur(); i++) {
-            for (int j = 0; i < largeur(); j++) {
+            for (int j = 0; j < largeur(); j++) {
                 if (res.pointEn(i, j).compareTo(niv) > 0) {
                     res.pointEn(i, j).eclaircir();
                 } else if (res.pointEn(i, j).compareTo(niv) < 0) {
@@ -178,4 +192,22 @@ public class ImageTab implements ImageGrise {
         }
         return res;
     }
+
+    @Override
+    public ImageGrise optimiser() {
+        int nbBlancs = 0;
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; j < largeur(); j++) {
+                if (pointEn(i,j).compareTo(NiveauGris.BLANC) == 0 ){
+                    nbBlancs++;
+                }
+            }
+        }
+        if (nbBlancs < largeur() * hauteur()) {
+            return new ImageDic(this);
+        }
+        return this;
+    }
+
+
 }

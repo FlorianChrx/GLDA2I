@@ -54,4 +54,10 @@ public interface ImageGrise {
      * niveau de gris moyen de l'image, et assombrir (respectivement eclaircir) les points 
      * plus sombres (resp. plus clairs) que ce niveau moyen */
     ImageGrise augmenterContraste() ;
+
+    /**
+     * converti automatiquement une image implémentée par tableau en une image identique
+     * implémentée par dictionnaire, ou vice-versa selon la proportion de points blancs dans l’image
+     */
+    ImageGrise optimiser();
 }
