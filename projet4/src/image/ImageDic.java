@@ -1,31 +1,37 @@
 package image;
 
-public class ImageTab implements ImageGrise {
+import dictionnaire.correction.Couple;
+import dictionnaire.correction.CoupleObj;
+import dictionnaire.correction.Dictionnaire;
 
-    private final NiveauGris[][] image;
-
-    public ImageTab(int largeur, int hauteur) {
-        image = new NiveauGris[hauteur][largeur];
-    }
+public class ImageDic implements ImageGrise {
+    private Dictionnaire<Couple<Integer, Integer>, NiveauGris> image;
+    private int largeur;
+    private int hauteur;
 
     @Override
     public int largeur() {
-        return image[0].length;
+        return largeur;
     }
 
     @Override
     public int hauteur() {
-        return image.length;
+        return hauteur;
     }
 
     @Override
     public NiveauGris pointEn(int x, int y) {
-        return image[x][y];
+        Couple<Integer, Integer> point = new CoupleObj<Integer, Integer>(x, y);
+        if (image.contientClef(point)) {
+            return image.valeurPour(point);
+        } else {
+            return NiveauGris.BLANC;
+        }
     }
 
     @Override
     public void definirPoint(int x, int y, NiveauGris gris) {
-        image[x][y] = gris;
+        image.ajouter(new CoupleObj<Integer, Integer>(x, y), gris);
     }
 
     @Override
