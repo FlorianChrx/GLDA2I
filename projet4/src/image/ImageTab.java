@@ -104,31 +104,78 @@ public class ImageTab implements ImageGrise {
 
     @Override
     public ImageGrise ajouter(ImageGrise img) {
-        return null;
+        ImageGrise res = new ImageTab(largeur(), hauteur());
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                res.definirPoint(i, j, image[i][j].ajouter(img.pointEn(i, j)));
+            }
+        }
+        return res;
     }
 
     @Override
     public ImageGrise soustraire(ImageGrise img) {
-        return null;
+        ImageGrise res = new ImageTab(largeur(), hauteur());
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                res.definirPoint(i, j, image[i][j].soustraire(img.pointEn(i, j)));
+            }
+        }
+        return res;
     }
 
     @Override
     public ImageGrise XOR(ImageGrise img) {
-        return null;
+        ImageGrise res = new ImageTab(largeur(), hauteur());
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                res.definirPoint(i, j, image[i][j].XOR(img.pointEn(i, j)));
+            }
+        }
+        return res;
     }
 
     @Override
     public ImageGrise intersection(ImageGrise img) {
-        return null;
+        ImageGrise res = new ImageTab(largeur(), hauteur());
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                if (image[i][j].compareTo(img.pointEn(i, j)) == 0) {
+                    res.definirPoint(i, j, image[i][j]);
+                } else {
+                    res.definirPoint(i, j, NiveauGris.BLANC);
+                }
+            }
+        }
+        return res;
     }
 
     @Override
     public NiveauGris niveauMoyen() {
-        return null;
+        int total = 0;
+        int nbPixels = 0;
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                total += image[i][j].ordinal();
+                total++;
+            }
+        }
+        return NiveauGris.values()[total / nbPixels];
     }
 
     @Override
     public ImageGrise augmenterContraste() {
-        return null;
+        ImageGrise res = dupliquer();
+        NiveauGris niv = niveauMoyen();
+        for (int i = 0; i < hauteur(); i++) {
+            for (int j = 0; i < largeur(); j++) {
+                if (res.pointEn(i, j).compareTo(niv) > 0) {
+                    res.pointEn(i, j).eclaircir();
+                } else if (res.pointEn(i, j).compareTo(niv) < 0) {
+                    res.pointEn(i, j).assombrir();
+                }
+            }
+        }
+        return res;
     }
 }
