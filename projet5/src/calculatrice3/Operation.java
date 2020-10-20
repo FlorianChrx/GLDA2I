@@ -2,6 +2,8 @@ package calculatrice3;
 
 import calculatrice.CalculatriceException;
 
+import java.util.Stack;
+
 /**
  * Classe repésentant un opération de calcul
  */
@@ -61,20 +63,43 @@ public enum Operation {
         protected double eval(double[] ops) {
             return 0;
         }
+
+        @Override
+        protected void execute(Stack<Double> pile) {
+            pile.pop();
+        }
     }, DUP() {
         @Override
         protected double eval(double[] ops) {
             return 0;
+        }
+
+        @Override
+        protected void execute(Stack<Double> pile) {
+            pile.push(pile.peek());
         }
     }, SWAP() {
         @Override
         protected double eval(double[] ops) {
             return 0;
         }
+
+        @Override
+        protected void execute(Stack<Double> pile) {
+            double a = pile.pop();
+            double b = pile.pop();
+            pile.push(a);
+            pile.push(b);
+        }
     }, COUNT() {
         @Override
         protected double eval(double[] ops) {
             return 0;
+        }
+
+        @Override
+        protected void execute(Stack<Double> pile) {
+            pile.push((double) pile.size());
         }
     };
 
@@ -136,6 +161,22 @@ public enum Operation {
      */
     protected abstract double eval(double[] ops);
 
+    /**
+     * Comportement par défaut d'une opération sur la pile
+     * @param pile la pile à manipuler
+     */
+    protected void execute(Stack<Double> pile){
+        double[] values = new double[getOPERANDES()];
+        for (int i = getOPERANDES() - 1; i >= 0; i--) {
+            values[i] = pile.pop();
+        }
+        pile.push(eval(values));
+    }
+
+    /**
+     * Permet d'accéder au nombre d'opérandes nécesaire à l'opération
+     * @return le nombre d'opérandes nécesaire à l'opération
+     */
     public int getOPERANDES() {
         return OPERANDES;
     }
