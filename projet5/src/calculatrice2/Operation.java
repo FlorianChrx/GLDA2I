@@ -41,6 +41,21 @@ public enum Operation {
         public double eval(double[] ops) {
             return Math.abs(ops[1]);
         }
+    }, NOT("NOT", 1) {
+        @Override
+        protected double eval(double[] ops) {
+            if (ops[0] == 0) return 1;
+            return 0;
+        }
+    }, IF("IF", 3) {
+        @Override
+        protected double eval(double[] ops) {
+            if (ops[0] == 0){
+                return ops[1];
+            } else {
+                return ops[2];
+            }
+        }
     };
 
     private final String OPERATION;
