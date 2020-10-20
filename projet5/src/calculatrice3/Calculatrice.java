@@ -28,12 +28,7 @@ public class Calculatrice {
                 resultat.push(Double.parseDouble(token));
             } else {
                 if(!OPERATIONS.containsKey(token)) throw new CalculatriceException();
-                Operation o = OPERATIONS.get(token);
-                double[] values = new double[o.getOPERANDES()];
-                for (int i = o.getOPERANDES() - 1; i >= 0; i--) {
-                    values[i] = resultat.pop();
-                }
-                resultat.push(o.eval(values));
+                OPERATIONS.get(token).execute(resultat);
             }
         }
         return resultat.pop() + "";
