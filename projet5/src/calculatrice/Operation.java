@@ -31,6 +31,9 @@ public enum Operation {
         }
     };
 
+    /**
+     * Représentation textuelle de l'opération
+     */
     private final String OPERATION;
 
     /**

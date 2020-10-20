@@ -58,7 +58,13 @@ public enum Operation {
         }
     };
 
+    /**
+     * Représentation textuelle de l'opération
+     */
     private final String OPERATION;
+    /**
+     * nombre d'opérandes nécessaires à l'opération
+     */
     private final int OPERANDES;
 
     /**
