@@ -1,4 +1,5 @@
-import calculatrice.* ;
+import calculatrice.CalculatriceException;
+import calculatrice2.* ;
 
 public class Calculer {
     public static void main(String [] args) {
