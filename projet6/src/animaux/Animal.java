@@ -1,6 +1,6 @@
 package animaux;
 public class Animal {
-    private String nom ;
+    private final String nom ;
     public Animal(String nom) { this.nom = nom ; }
     public Animal() { nom = null ; }
     public String toString() { 
