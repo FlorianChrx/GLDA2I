@@ -7,6 +7,7 @@ public class EmployeNormal extends EmployeAvecHSup {
 
     /**
      * Constructeur d'un employé normal
+     *
      * @param nom le nom de l'employé
      */
     public EmployeNormal(String nom) {

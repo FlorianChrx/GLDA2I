@@ -10,19 +10,20 @@ public abstract class EmployeQuelconque {
      */
     protected final double taux;
     /**
-     * Le travail effectué. Il peut être numéraire ou horaire.
-     */
-    protected double effectue ;
-    /**
      * Le nom de l'employé
      */
-    protected final String nom ;
+    protected final String nom;
+    /**
+     * Le travail effectué. Il peut être numéraire ou horaire.
+     */
+    protected double effectue;
 
     /**
      * Contrcuteur d'un employé quelconque
+     *
      * @param base la base de calcul de la rémunération
      * @param taux le taux lié à la rémunération
-     * @param nom le nom de l'employé
+     * @param nom  le nom de l'employé
      */
     protected EmployeQuelconque(double base, double taux, String nom) {
         this.base = base;
@@ -32,6 +33,7 @@ public abstract class EmployeQuelconque {
 
     /**
      * Permet de modifier la mesure de travail effectué
+     *
      * @param effectue
      */
     public void setTravail(double effectue) {
@@ -40,6 +42,7 @@ public abstract class EmployeQuelconque {
 
     /**
      * Permet de représenter l'employé sous forme de chaîne de caractères
+     *
      * @return
      */
     public String toString() {

@@ -12,6 +12,7 @@ public class Directeur extends Commercial {
 
     /**
      * Contructeur du directeur
+     *
      * @param nom le nom du directeur
      */
     private Directeur(String nom) {
@@ -20,16 +21,18 @@ public class Directeur extends Commercial {
 
     /**
      * Permet de créer le directeur
+     *
      * @param nom le nom du directeur à créer
      * @return le directeur créé
      */
-    public static Directeur createDirecteur(String nom){
+    public static Directeur createDirecteur(String nom) {
         instance = new Directeur(nom);
         return getDirecteur();
     }
 
     /**
      * Permet d'obtenir l'instance du directeur
+     *
      * @return le directeur
      */
     public static Directeur getDirecteur() {

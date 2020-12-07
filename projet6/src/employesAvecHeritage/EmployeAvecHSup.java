@@ -11,9 +11,10 @@ public class EmployeAvecHSup extends EmployeQuelconque {
 
     /**
      * Permet de construire un employé avec toutes ses caractéristiques
-     * @param base représente ici le nombre d'heures de base hebdomadaire
-     * @param taux représente ici le taux horaire de rémunération
-     * @param nom représente le nom de l'employé
+     *
+     * @param base       représente ici le nombre d'heures de base hebdomadaire
+     * @param taux       représente ici le taux horaire de rémunération
+     * @param nom        représente le nom de l'employé
      * @param majoration représente le taux de majoration des heures supplémentaires
      */
     protected EmployeAvecHSup(double base, double taux, String nom, double majoration) {
@@ -23,6 +24,7 @@ public class EmployeAvecHSup extends EmployeQuelconque {
 
     /**
      * Permet le calcul de la rémunération hebdomadaire
+     *
      * @return le salaire obtenu pour la semaine
      */
     public double salaireHebdo() {
